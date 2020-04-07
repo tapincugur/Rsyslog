@@ -1,1 +1,1 @@
-### Rsyslog ( logs of the all commands running on cli to Syslog and Graylog Server ) 
+### Rsyslog ( logs of the all bash commands by all users to Syslog and Graylog Server ) 
