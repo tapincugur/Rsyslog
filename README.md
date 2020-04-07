@@ -1,0 +1,19 @@
+# Rsyslog ( logs of the all commands running on cli to Syslog and Graylog Server ) 
+
+vi /etc/rsyslog.conf
+*.* @GRAYLOG_PRIVATE_IP_ADD:5140;RSYSLOG_SyslogProtocol23Format
+
+sudo -e /etc/bash.bashrc
+export PROMPT_COMMAND='RETRN_VAL=$?;logger -p local6.debug "$(whoami) [$$]: $(history 1 | sed "s/^[ ]*[0-9]\+[ ]*//" ) [$RETRN_VAL]"'
+
+sudo -e /etc/rsyslog.d/bash.conf
+local6.*    /var/log/commands.log
+
+sudo -e /etc/logrotate.d/rsyslog
+/var/log/commands.log
+
+vi /etc/rsyslog.d/50-default.conf
+local6.*                        -/var/log/commands.log
+
+systemctl restart rsyslog
+systemctl enable rsyslog
